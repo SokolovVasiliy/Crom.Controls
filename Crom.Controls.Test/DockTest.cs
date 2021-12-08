@@ -44,7 +44,7 @@ namespace Crom.Controls.Test
             //Render
             InitializeComponent();
             _serializer = new DockStateSerializer(_docker);
-            _docker.PreviewRenderer = new CustomPreviewRenderer1();
+            _docker.PreviewRenderer = new CustomPreviewRenderer();
             _docker.ShowContextMenu += OnDockerShowContextMenu;
             _docker.FormClosing += OnDockerFormClosing;
             _docker.FormClosed += OnDockerFormClosed;
