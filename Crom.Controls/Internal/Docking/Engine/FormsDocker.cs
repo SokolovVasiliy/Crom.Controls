@@ -27,7 +27,7 @@ namespace Crom.Controls.Docking
     /// <summary>
     /// Forms docker
     /// </summary>
-    internal class FormsDocker : Disposable
+    public class FormsDocker : Disposable
     {
         #region Fields
 
@@ -99,7 +99,6 @@ namespace Crom.Controls.Docking
         /// Occurs after a form was closed
         /// </summary>
         public event EventHandler<FormEventArgs> FormClosed;
-
         /// <summary>
         /// Accessor of the switch selector
         /// </summary>
@@ -344,7 +343,6 @@ namespace Crom.Controls.Docking
             set
             {
                 ValidateNotDisposed();
-
                 DockableFormInfo info = GetFormInfo(value);
                 info.IsSelected = true;
             }
@@ -489,6 +487,10 @@ namespace Crom.Controls.Docking
         private void OnPositionerMoveByMouse(object sender, EventArgs e)
         {
             _guider.MoveWindowByMouse();
+            foreach (var dockInfo in _dockableForms)
+            {
+                dockInfo.DockableForm.Refresh();
+            }
         }
 
         /// <summary>

@@ -69,7 +69,6 @@ namespace Crom.Controls.Docking
         /// Occurs after a form was closed
         /// </summary>
         public event EventHandler<FormEventArgs> FormClosed;
-
         /// <summary>
         /// Accessor of the switch selector
         /// </summary>

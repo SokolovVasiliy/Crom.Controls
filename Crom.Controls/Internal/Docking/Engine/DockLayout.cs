@@ -28,7 +28,7 @@ namespace Crom.Controls.Docking
     /// <summary>
     /// Manager for dock layout
     /// </summary>
-    internal class DockLayout
+    public class DockLayout
     {
         #region Fields
 
@@ -42,7 +42,7 @@ namespace Crom.Controls.Docking
         /// Constructor
         /// </summary>
         /// <param name="host">host window</param>
-        public DockLayout(FormWrapper host)
+        internal DockLayout(FormWrapper host)
         {
             _host = host;
         }
@@ -85,7 +85,7 @@ namespace Crom.Controls.Docking
         /// <param name="view">view for which to create floating container</param>
         /// <param name="bounds">bounds of the floating container</param>
         /// <returns>floating container</returns>
-        public DockableContainer CreateFloatingContainer(FormsTabbedView view, Rectangle bounds)
+        internal DockableContainer CreateFloatingContainer(FormsTabbedView view, Rectangle bounds)
         {
             DockableContainer container = new DockableContainer();
             _host.AddFirst(container);
@@ -133,7 +133,7 @@ namespace Crom.Controls.Docking
         /// <param name="containerToDock">container to dock</param>
         /// <param name="containerWhereToDock">container where to dock</param>
         /// <param name="mode">were to dock</param>
-        public void DockControl(DockableContainer containerToDock, DockableContainer containerWhereToDock, DockStyle dock, zDockMode mode)
+        internal void DockControl(DockableContainer containerToDock, DockableContainer containerWhereToDock, DockStyle dock, zDockMode mode)
         {
             Debug.Assert(dock != DockStyle.None);
 
@@ -153,7 +153,7 @@ namespace Crom.Controls.Docking
         /// Undock the view
         /// </summary>
         /// <param name="view">view</param>
-        public void Undock(FormsTabbedView view)
+        internal void Undock(FormsTabbedView view)
         {
             Point mousePosition = _host.PointToClient(Control.MousePosition);
 
@@ -170,7 +170,7 @@ namespace Crom.Controls.Docking
         /// </summary>
         /// <param name="view">view</param>
         /// <param name="floatingBounds">floating bounds</param>
-        public void Undock(FormsTabbedView view, Rectangle floatingBounds)
+        internal void Undock(FormsTabbedView view, Rectangle floatingBounds)
         {
             DockableContainer container = (DockableContainer)view.Parent;
             container.SetModeEmpty();
@@ -187,7 +187,7 @@ namespace Crom.Controls.Docking
         /// <param name="hostContainerDock">host container dock</param>
         /// <param name="dock">dock</param>
         /// <param name="mode">mode</param>
-        public void SetViewDock(FormsTabbedView view, DockStyle hostContainerDock, DockStyle dock, zDockMode mode)
+        internal void SetViewDock(FormsTabbedView view, DockStyle hostContainerDock, DockStyle dock, zDockMode mode)
         {
             UpdateViewButtons(view);
 

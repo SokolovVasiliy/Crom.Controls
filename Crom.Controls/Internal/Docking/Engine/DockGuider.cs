@@ -88,13 +88,11 @@ namespace Crom.Controls.Docking
             {
                 return;
             }
-
             zAllowedDock allowedDock = _allowedDock;
             Point screenLocation = Control.MousePosition;
             DockableContainer containerUnderMouse = GetContainerUnderMouse(screenLocation);
-
             Rectangle fillRectangle = FormWrapper.GetFillRectangleFromPoint(screenLocation, containerUnderMouse, _host);
-
+            //-- This block of code has an incomprehensible purpose
             if (fillRectangle.IsEmpty)
             {
                 _guider.HideCenterGuider();
@@ -111,10 +109,8 @@ namespace Crom.Controls.Docking
                     _guider.ShowCenterGuider(allowedDock, fillRectangle);
                 }
             }
-
-
+            //-- This block of code makes a preview of the new window location (layout)
             GuidedDockResult result = _guider.GetDockResult(allowedDock, screenLocation);
-
             if (result.DockMode == zDockMode.Outer && result.Dock != DockStyle.None)
             {
                 Rectangle bounds = OuterDockPreviewEngine.GetPreviewBounds(result.Dock, _host, _movedWindow);
