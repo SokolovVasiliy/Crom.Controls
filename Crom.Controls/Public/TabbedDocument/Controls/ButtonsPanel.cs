@@ -72,27 +72,33 @@ namespace Crom.Controls.TabbedDocument
         private int _captionButtonIndexUnderMouse = -1;
 
         private bool _showOneTabButton = true;
-
+        protected Form m_general_form;
         #endregion Fields
 
         #region Instance
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public ButtonsPanel()
+        private void Init()
         {
             InitializeComponent();
-
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.ResizeRedraw, true);
             SetStyle(ControlStyles.Selectable, true);
             SetStyle(ControlStyles.UserPaint, true);
-
             //_scrollMoveTimer.Tick    += OnScrollMoveTimeOccurence;
             //_scrollMoveTimer.Interval = 500;
             //_scrollMoveTimer.Enabled  = true;
+        }
+        public ButtonsPanel()
+        {
+            Init();
+        }
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public ButtonsPanel(Form generalForm)
+        {
+            m_general_form = generalForm;
+            Init();
         }
 
         #endregion Instance

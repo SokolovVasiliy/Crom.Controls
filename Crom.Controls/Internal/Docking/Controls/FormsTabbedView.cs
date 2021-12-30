@@ -46,7 +46,7 @@ namespace Crom.Controls.Docking
         private Form _movedForm = null;
         private TabButton _movedButton = null;
         private FormsDecorator _movedDecorator = null;
-
+        
         #endregion Fields
 
         #region Instance
@@ -55,8 +55,9 @@ namespace Crom.Controls.Docking
         /// Constructor
         /// </summary>
         /// <param name="pagesPanel">pages panel</param>
-        public FormsTabbedView()
+        public FormsTabbedView(Form generalForm) : base(generalForm)
         {
+            m_general_form = generalForm;
             PagesPanel.ContextButtonClick += OnPagesContextMenuClick;
             PagesPanel.AutohideButtonClick += OnPagesAutohideClick;
             PagesPanel.CloseButtonClick += OnPagesCloseClick;
@@ -777,7 +778,7 @@ namespace Crom.Controls.Docking
             {
                 if (_controls == null)
                 {
-                    _controls = new FormsTabbedViewControlCollection(this);
+                    _controls = new FormsTabbedViewControlCollection(this, m_general_form);
                 }
 
                 return _controls;

@@ -46,7 +46,7 @@ namespace Crom.Controls.Docking
 
         private Timer _unhighlightTimer = new Timer();
         private bool _canResizeByMouse = true;
-
+        Form m_general_form;
         #endregion Fields
 
         #region Instance
@@ -54,11 +54,14 @@ namespace Crom.Controls.Docking
         /// <summary>
         /// Default constructor
         /// </summary>
-        public FormsDecorator()
+        public FormsDecorator(Form generalForm)
         {
+            m_general_form = generalForm;
+            if(generalForm != null)
+                m_general_form.TextChanged += OnHeaderFormChanged;
             FormsPanel.Bounds = ClientRectangle;
             FormsPanel.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
-            
+            var ic = InternalControls;
             this.Paint += OnFormDecoratorPaint;
             //FormsPanel.Paint += OnFormDecoratorPaint;
             TitleBar.Height = 24;
@@ -67,7 +70,6 @@ namespace Crom.Controls.Docking
             TitleBar.MouseDown += OnMouseDownInTitleBar;
             TitleBar.MouseMove += OnMouseMoveInTitleBar;
             TitleBar.MouseUp += OnMouseUpFromTitleBar;
-
             TopMargin.Height = 4;
             TopMargin.Cursor = Cursors.SizeNS;
             TopMargin.MouseDown += OnMouseDownInTopMargin;
@@ -93,7 +95,6 @@ namespace Crom.Controls.Docking
             BottomMargin.MouseUp += OnMouseUpFromBottomMargin;
 
 
-            TitleBar.BackColor = Color.Red;
             LeftMargin.BackColor = SystemColors.Control;
             RightMargin.BackColor = SystemColors.Control;
             BottomMargin.BackColor = SystemColors.Control;
@@ -503,8 +504,9 @@ namespace Crom.Controls.Docking
             //Font font = new Font(Font.Name, 8);
             //font = new Font("Calibri", 8, FontStyle.Bold);
             //font = new Font(font.Name, 9, FontStyle.Regular);
-            Color c1 = Color.White;
-            Color c2 = IsFocused ? Color.SkyBlue : Color.White;
+            //Color c1 = Color.White;
+            //Color c1 = Color.White;
+            //Color c2 = IsFocused ? Color.SkyBlue : Color.White;
             if(_sizeMode == zSizeMode.None)
             {
                 //Point location = TitleBar.PointToScreen(e.Location);
@@ -527,7 +529,10 @@ namespace Crom.Controls.Docking
                 if (font.Bold == false)
                     font = new Font(font, FontStyle.Bold);
             }*/
-            _titleRenderer.Draw(font, e.Graphics, c1, c2);
+            if(IsFocused)
+                _titleRenderer.Draw(font, e.Graphics, Color.White, Color.SkyBlue);
+            else
+                _titleRenderer.Draw(font, e.Graphics, Color.White, Color.White);
         }
 
         private void OnFormDecoratorPaint(object sender, PaintEventArgs e)
@@ -635,6 +640,9 @@ namespace Crom.Controls.Docking
         private void OnMouseDownInTitleBar(object sender, MouseEventArgs e)
         {
             _sizeMode = zSizeMode.None;
+            //BeginMovementByMouse(e.Location);
+            //ContinueMovementByMouse(e.Location);
+            //EndMovementByMouse();
             
             if (e.Button == MouseButtons.Left)
             {
@@ -744,7 +752,7 @@ namespace Crom.Controls.Docking
         private void OnMouseDownInTopMargin(object sender, MouseEventArgs e)
         {
             _sizeMode = zSizeMode.None;
-
+            Focus();
             if (e.Button == MouseButtons.Left && Positioner.CanSizeTop && CanResizeByMouse)
             {
                 _mouseDownScreenPos = TopMargin.PointToScreen(e.Location);
@@ -786,7 +794,11 @@ namespace Crom.Controls.Docking
             _sizeMode = zSizeMode.None;
         }
 
-
+        private void OnHeaderFormChanged(object sender, EventArgs e)
+        {
+            TitleBar.Text = m_general_form.Text;
+            ApplyTopFormMargins();
+        }
         /// <summary>
         /// On mouse down in title left margin
         /// </summary>
@@ -868,9 +880,7 @@ namespace Crom.Controls.Docking
                 Point location = RightMargin.PointToScreen(e.Location);
                 int dx = location.X - _mouseDownScreenPos.X;
 
-                Positioner.Size = new Size(
-                   _positionerSizeOnMouseDown.Width + dx,
-                   Positioner.Size.Height);
+                Positioner.Size = new Size(_positionerSizeOnMouseDown.Width + dx, Positioner.Size.Height);
             }
         }
 
@@ -1114,7 +1124,7 @@ namespace Crom.Controls.Docking
             TitleBar.Top = TopMargin.Bottom;
             TitleBar.Left = TopMargin.Left;
             TitleBar.Width = TopMargin.Width;
-            TitleBar.Height = magins.Top - magins.Bottom;
+            TitleBar.Height = magins.Top - magins.Bottom + 2;
 
             BottomMargin.Top = FormsPanel.Bottom - magins.Bottom;
             BottomMargin.Left = FormsPanel.Left;
@@ -1138,7 +1148,7 @@ namespace Crom.Controls.Docking
             {
                 _titleRenderer.Icon = selectedForm.Icon;
                 _titleRenderer.Text = selectedForm.Text;
-
+                //TitleBar.Height = 80;
                 selectedForm.Bounds = FormsPanel.ClientRectangle;
             }
 

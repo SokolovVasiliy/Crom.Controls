@@ -140,7 +140,7 @@ namespace Crom.Controls.Docking
         public DockableFormInfo Add(Form form, zAllowedDock allowedDock, Guid formIdentifier)
         {
             //-- fixed dialog
-            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            //form.FormBorderStyle = FormBorderStyle.FixedDialog;
             //-- If this form already added into conteiner - throw exception
             if (GetFormInfo(form) != null)
             {
@@ -156,10 +156,12 @@ namespace Crom.Controls.Docking
 
             _dockableForms.Add(info);
 
-            FormsTabbedView view = CreateFormsTabbedView(bounds.Size, null);
+            FormsTabbedView view = CreateFormsTabbedView(bounds.Size, null, form);
+            view.BackGradient1 = Color.Gray;
+            view.BackGradient2 = Color.Gray;
             view.Add(info);
 
-            _layout.CreateFloatingContainer(view, bounds);
+            DockableContainer cont = _layout.CreateFloatingContainer(view, bounds);
 
             return info;
         }
@@ -684,11 +686,9 @@ namespace Crom.Controls.Docking
         /// <param name="size">initial size of decorator</param>
         /// <param name="positioner">positioner for control</param>
         /// <returns>forms tabbed view</returns>
-        private FormsTabbedView CreateFormsTabbedView(Size size, ControlPositioner positioner)
+        private FormsTabbedView CreateFormsTabbedView(Size size, ControlPositioner positioner, Form generalForm)
         {
-            FormsTabbedView view = new FormsTabbedView();
-            view.BackGradient1 = Color.Red;
-            view.BackGradient2 = Color.Green;
+            FormsTabbedView view = new FormsTabbedView(generalForm);
             view.ShowOneTabButton = false;
             view.Size = size;
             view.PagesPanel.Positioner = positioner;
@@ -826,7 +826,7 @@ namespace Crom.Controls.Docking
             {
                 DockableFormInfo info = GetFormInfo(formToUndock);
 
-                FormsTabbedView newView = CreateFormsTabbedView(info.DockableForm.Size, null);
+                FormsTabbedView newView = CreateFormsTabbedView(info.DockableForm.Size, null, formToUndock);
                 newView.Add(info);
 
                 _layout.CreateFloatingContainer(newView, hintBounds);

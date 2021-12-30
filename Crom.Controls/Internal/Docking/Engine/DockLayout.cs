@@ -93,6 +93,7 @@ namespace Crom.Controls.Docking
             container.Bounds = bounds;
 
             container.SetModeSingleChild(view);
+            container.BackColor = Color.Red;
 
             if (EnumUtility.Contains(view.AllowedDock, zAllowedDock.None))
             {

@@ -28,7 +28,7 @@ namespace Crom.Controls.Docking
     {
         #region Fields
 
-        private FormsDecorator _pagesPanel = new FormsDecorator();
+        private FormsDecorator _pagesPanel;
 
         #endregion Fields
 
@@ -38,8 +38,9 @@ namespace Crom.Controls.Docking
         /// Constructor
         /// </summary>
         /// <param name="owner">owner control</param>
-        public FormsTabbedViewControlCollection(Control owner) : base(owner)
+        public FormsTabbedViewControlCollection(Control owner, Form generalForm) : base(owner)
         {
+            _pagesPanel = new FormsDecorator(generalForm);
             base.Add(_pagesPanel);
         }
 

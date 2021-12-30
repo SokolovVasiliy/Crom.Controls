@@ -133,8 +133,8 @@ namespace Crom.Controls.Docking
 
         #region Private section
 
-        [DllImport("User32")]
-        private static extern IntPtr GetForegroundWindow();
+        //[DllImport("User32")]
+        //private static extern IntPtr GetForegroundWindow();
 
         /// <summary>
         /// Occurs when a control got focus
@@ -155,10 +155,10 @@ namespace Crom.Controls.Docking
         /// <summary>
         /// Update the focused control
         /// </summary>
-        private void UpdateFocusedControl()
+        /*private void UpdateFocusedControl()
         {
             LastFocusedControl = GetForegroundWindow();
-        }
+        }*/
 
         /// <summary>
         /// Accessor of the last focused control
