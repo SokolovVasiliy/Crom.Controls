@@ -115,7 +115,8 @@ namespace Crom.Controls.Docking
         public DockableFormInfo Add(Form form, zAllowedDock allowedDock, Guid formIdentifier)
         {
             DockableFormInfo info = _docker.Add(form, allowedDock, formIdentifier);
-            form.MouseClick += BringToFrontHelper.OnBringToFront;
+            //form.MouseClick += BringToFrontHelper.OnBringToFront;
+            form.ForeAllElements(c => c.MouseClick += BringToFrontHelper.OnBringToFront);
             return info;
         }
         /// <summary>
@@ -169,6 +170,40 @@ namespace Crom.Controls.Docking
         public void DockForm(DockableFormInfo info, DockableFormInfo infoOver, DockStyle dock, zDockMode mode)
         {
             _docker.DockOver(info, infoOver, dock, mode);
+        }
+        private FormContextMenuEventArgs m_last_menu_form;
+        private void AddDockMenu(Form form)
+        {
+            var cm_1 = new ToolStripMenuItem("Undock", null, OnUndock);
+            ToolStripItem[] items = new ToolStripItem[] { cm_1 };
+            if(form.ContextMenuStrip == null)
+                form.ContextMenuStrip = new ContextMenuStrip();
+            form.ContextMenuStrip.Items.AddRange(items);
+            ShowContextMenu += OnContextMenuChange;
+        }
+
+        private void OnContextMenuChange(object sender, FormContextMenuEventArgs menu_open)
+        {
+            if (menu_open.Form.ContextMenuStrip == null)
+                return;
+            if (menu_open.Form.ContextMenuStrip.Visible == false)
+            {
+                menu_open.Form.ContextMenuStrip.Show(this, menu_open.MenuLocation);
+                m_last_menu_form = menu_open;
+            }
+            else
+            {
+                menu_open.Form.ContextMenuStrip.Hide();
+                m_last_menu_form = null;
+            }
+        }
+
+        private void OnUndock(object sender, EventArgs e)
+        {
+            if (m_last_menu_form == null)
+                return;
+            DockableFormInfo info = GetFormInfo(m_last_menu_form.Form);
+            //Undock(info, new Rectangle(100, 100, 300, 500));
         }
 
         /// <summary>

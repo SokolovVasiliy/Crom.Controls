@@ -166,6 +166,7 @@
     <Compile Include="Internal\Docking\Helpers\BringToFrontHelper.cs" />
     <Compile Include="Internal\Docking\Helpers\DefaultFormsSelector.cs" />
     <Compile Include="Internal\Docking\Helpers\FocusFilter.cs" />
+    <Compile Include="Internal\Docking\Helpers\RecursiveSubscrible.cs" />
     <Compile Include="Internal\Docking\Helpers\SelectableFormsInfo.cs" />
     <Compile Include="Public\Docking\Enums\zAllowedDock.cs" />
     <Compile Include="Public\Docking\Enums\zDockMode.cs" />

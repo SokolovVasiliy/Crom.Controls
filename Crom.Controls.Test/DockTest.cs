@@ -30,6 +30,7 @@ namespace Crom.Controls.Test
         private ToolStripMenuItem addSomeMenuHereToolStripMenuItem;
         private ToolStripMenuItem _menuHelp;
         private ToolStripMenuItem _menuHelpInfo;
+        private ToolStripMenuItem undockSelectFormToolStripMenuItem;
         private DockStateSerializer _serializer = null;
 
         #endregion Fields
@@ -124,6 +125,7 @@ namespace Crom.Controls.Test
             this._menuHelpInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addSomeMenuHereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.undockSelectFormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -189,7 +191,8 @@ namespace Crom.Controls.Test
             // _menuWork
             // 
             this._menuWork.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._menuWorkInitialize});
+            this._menuWorkInitialize,
+            this.undockSelectFormToolStripMenuItem});
             this._menuWork.Name = "_menuWork";
             this._menuWork.Size = new System.Drawing.Size(47, 20);
             this._menuWork.Text = "Work";
@@ -197,7 +200,7 @@ namespace Crom.Controls.Test
             // _menuWorkInitialize
             // 
             this._menuWorkInitialize.Name = "_menuWorkInitialize";
-            this._menuWorkInitialize.Size = new System.Drawing.Size(117, 22);
+            this._menuWorkInitialize.Size = new System.Drawing.Size(180, 22);
             this._menuWorkInitialize.Text = "Initialize";
             this._menuWorkInitialize.Click += new System.EventHandler(this.OnWorkInitializeClick);
             // 
@@ -229,6 +232,13 @@ namespace Crom.Controls.Test
             this.addSomeMenuHereToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.addSomeMenuHereToolStripMenuItem.Text = "Add some menu here";
             // 
+            // undockSelectFormToolStripMenuItem
+            // 
+            this.undockSelectFormToolStripMenuItem.Name = "undockSelectFormToolStripMenuItem";
+            this.undockSelectFormToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.undockSelectFormToolStripMenuItem.Text = "Undock Select Form";
+            this.undockSelectFormToolStripMenuItem.Click += new System.EventHandler(this.undockSelectFormToolStripMenuItem_Click);
+            // 
             // DockTest
             // 
             this.ClientSize = new System.Drawing.Size(292, 266);
@@ -245,7 +255,7 @@ namespace Crom.Controls.Test
             this.PerformLayout();
 
         }
-
+        Form form2_d;
         /// <summary>
         /// Initialize
         /// </summary>
@@ -255,6 +265,7 @@ namespace Crom.Controls.Test
             //form1.MouseClick += OnMo
             form1.Font = new Font("Arial Black", 15);
             Form form2 = CreateTestForm(new Guid("096b52a7-5f4b-44ee-ab77-9830ec717002"));
+            form2_d = form2;
             Form form3 = CreateTestForm(new Guid("3d8466c1-e406-4e47-b744-6915afe6e003"));
             Form form4 = CreateTestForm(new Guid("1a957c12-df87-4a63-b8a4-ed485a203004"));
             Form form5 = CreateTestForm(new Guid("0a3f4468-080b-404e-b012-997b93ed2005"));
@@ -350,5 +361,13 @@ namespace Crom.Controls.Test
         }
 
         #endregion Private section
+
+        private void undockSelectFormToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var info = _docker.GetFormInfo(form2_d);
+            _docker.Remove(info);
+            Form t = this;
+            var c = t.Parent;
+        }
     }
 }

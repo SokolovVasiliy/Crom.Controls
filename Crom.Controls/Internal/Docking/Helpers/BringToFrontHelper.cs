@@ -21,6 +21,7 @@ namespace Crom.Controls.Docking
             DockableContainer dockContainer = controls[controls.Count - 2] as DockableContainer;
             if (dock != null && dockContainer != null)
                 dock.Controls.SetChildIndex(dockContainer, 0);
+            
         }
     }
 }
