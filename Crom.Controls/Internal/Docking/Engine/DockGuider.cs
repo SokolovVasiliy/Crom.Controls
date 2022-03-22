@@ -70,7 +70,8 @@ namespace Crom.Controls.Docking
         {
             if (_movedWindow != null)
             {
-                throw new InvalidOperationException("Err001");
+                //throw new InvalidOperationException("Err001");
+                return;
             }
 
             _movedWindow = window;

@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Printing;
@@ -66,6 +67,7 @@ namespace Crom.Controls.Docking
             //FormsPanel.Paint += OnFormDecoratorPaint;
             TitleBar.Height = 24;
             TitleBar.Cursor = Cursors.Default;
+            TitleBar.MouseClick += BringToFrontHelper.OnBringToFront;
             TitleBar.Paint += OnPaintTitleBar;
             TitleBar.MouseDown += OnMouseDownInTitleBar;
             TitleBar.MouseMove += OnMouseMoveInTitleBar;

@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -103,7 +104,7 @@ namespace Crom.Controls.Docking
         {
             get { return _docker.Count; }
         }
-
+        public FormsDocker Docker => _docker;
         /// <summary>
         /// Add form to guider
         /// </summary>
@@ -113,9 +114,10 @@ namespace Crom.Controls.Docking
         /// <returns>object that encapsulates relevant information for the guided form</returns>
         public DockableFormInfo Add(Form form, zAllowedDock allowedDock, Guid formIdentifier)
         {
-            return _docker.Add(form, allowedDock, formIdentifier);
+            DockableFormInfo info = _docker.Add(form, allowedDock, formIdentifier);
+            form.MouseClick += BringToFrontHelper.OnBringToFront;
+            return info;
         }
-
         /// <summary>
         /// Gets the info of the form at given index
         /// </summary>
@@ -207,7 +209,8 @@ namespace Crom.Controls.Docking
         }
 
         #endregion Public section
-
+        
+        
         #region Protected section
 
         /// <summary>

@@ -37,7 +37,7 @@ namespace Crom.Controls.Docking
         #endregion Instance
 
         #region Protected section
-        
+
         /// <summary>
         /// Creates the control collection instance
         /// </summary>

@@ -36,6 +36,8 @@ namespace Crom.Controls.Docking
         private DockableContainerControlCollection _controls = null;
         private Splitter _splitter = null;
 
+        
+
         #endregion Fields
 
         #region Instance
@@ -50,6 +52,7 @@ namespace Crom.Controls.Docking
                 throw new InvalidOperationException();
             }
         }
+        
 
         #endregion Instance
 

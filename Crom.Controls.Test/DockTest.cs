@@ -252,6 +252,7 @@ namespace Crom.Controls.Test
         private void Initialize()
         {
             Form form1 = CreateTestForm(new Guid("a6402b80-2ebd-4fd3-8930-024a6201d001"));
+            //form1.MouseClick += OnMo
             form1.Font = new Font("Arial Black", 15);
             Form form2 = CreateTestForm(new Guid("096b52a7-5f4b-44ee-ab77-9830ec717002"));
             Form form3 = CreateTestForm(new Guid("3d8466c1-e406-4e47-b744-6915afe6e003"));
@@ -268,6 +269,8 @@ namespace Crom.Controls.Test
             DockableFormInfo info6 = _docker.Add(form6, zAllowedDock.Vertically, new Guid("1da6e328-d158-47de-a4ea-14172c287006"));
             DockableFormInfo info7 = _docker.Add(form7, zAllowedDock.All, new Guid("fe4d6143-1934-4df3-9fca-be8ddfe19007"));
 
+            //info1.DockableForm.MouseMove += OnMouseClick;
+            info1.DockableForm.MouseDoubleClick += OnMouseClick;
             _docker.DockForm(info5, DockStyle.Top, zDockMode.Outer);
             _docker.DockForm(info6, DockStyle.Bottom, zDockMode.Outer);
 
@@ -277,22 +280,28 @@ namespace Crom.Controls.Test
             _docker.DockForm(info3, DockStyle.Left, zDockMode.Inner);
             _docker.DockForm(info4, DockStyle.Left, zDockMode.Outer);
             _docker.DockForm(info7, DockStyle.Fill, zDockMode.None);
+
+
         }
 
-        private static Form CreateTestForm(int left, int top, int width, int height, Color backColor, string caption)
+        private Form CreateTestForm(int left, int top, int width, int height, Color backColor, string caption)
         {
             Form form = new Form();
-            form.Bounds = new Rectangle(left, top, width, height);
+            //form.Bounds = new Rectangle(left, top, width, height);
             form.FormBorderStyle = FormBorderStyle.SizableToolWindow;
-            TextBox text = new TextBox();
+            /*TextBox text = new TextBox();
             text.Multiline = true;
             text.Parent = form;
             text.Dock = DockStyle.Fill;
-            text.BackColor = backColor;
+            text.BackColor = backColor;*/
             form.Text = caption;
             form.TopLevel = false;
-
             return form;
+        }
+
+        private void OnMouseClick(object sender, MouseEventArgs e)
+        {
+            ;
         }
 
         /// <summary>
@@ -300,7 +309,7 @@ namespace Crom.Controls.Test
         /// </summary>
         /// <param name="identifier">form identifier</param>
         /// <returns>test form</returns>
-        private static Form CreateTestForm(Guid identifier)
+        private Form CreateTestForm(Guid identifier)
         {
             if (identifier == new Guid("a6402b80-2ebd-4fd3-8930-024a6201d001"))
             {

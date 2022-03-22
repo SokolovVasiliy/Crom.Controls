@@ -107,7 +107,7 @@ namespace Crom.Controls.Docking
             get { return _switchSelector; }
             set { _switchSelector = value; }
         }
-
+        
         /// <summary>
         /// Accessor of the preview renderer
         /// </summary>
@@ -140,7 +140,7 @@ namespace Crom.Controls.Docking
         public DockableFormInfo Add(Form form, zAllowedDock allowedDock, Guid formIdentifier)
         {
             //-- fixed dialog
-            //form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
             //-- If this form already added into conteiner - throw exception
             if (GetFormInfo(form) != null)
             {
@@ -150,6 +150,7 @@ namespace Crom.Controls.Docking
             Rectangle bounds = form.Bounds;
 
             DockableFormInfo info = new DockableFormInfo(form, allowedDock, formIdentifier);
+            
             info.ExplicitDisposing += OnInfoDisposing;
             info.SelectedChanged += OnFormSelectedChanged;
             info.ShowAutoPanel += OnShowFormAutoPanel;
@@ -174,7 +175,6 @@ namespace Crom.Controls.Docking
         public DockableFormInfo GetFormInfoAt(int index)
         {
             ValidateNotDisposed();
-
             return _dockableForms[index];
         }
 
@@ -303,7 +303,12 @@ namespace Crom.Controls.Docking
             info.ShowAutoPanel -= OnShowFormAutoPanel;
             info.ExplicitDisposing -= OnInfoDisposing;
         }
-
+        public void UpdateTabbet(Form form)
+        {
+            FormsTabbedView view = HierarchyUtility.GetTabbedView(form);
+            
+            view.BringToFront();
+        }
         /// <summary>
         /// Clear
         /// </summary>

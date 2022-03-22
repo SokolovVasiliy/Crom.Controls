@@ -111,11 +111,11 @@ namespace Crom.Controls.Docking
         /// </summary>
         /// <param name="child">child control</param>
         /// <param name="newIndex">zero based new child index</param>
-        public override void SetChildIndex(Control child, int newIndex)
+        /*public override void SetChildIndex(Control child, int newIndex)
         {
             // Disconnect from the base
             throw new NotSupportedException();
-        }
+        }*/
 
         /// <summary>
         /// Accessor of the forms panel
