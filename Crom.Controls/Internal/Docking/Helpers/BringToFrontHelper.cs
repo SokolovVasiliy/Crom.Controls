@@ -20,8 +20,20 @@ namespace Crom.Controls.Docking
             DockContainer dock = controls[controls.Count - 1] as DockContainer;
             DockableContainer dockContainer = controls[controls.Count - 2] as DockableContainer;
             if (dock != null && dockContainer != null)
+            {
                 dock.Controls.SetChildIndex(dockContainer, 0);
-            
+            }
         }
+
+        private static void BringToFront(Control.ControlCollection collection, Control control)
+        {
+            Control[] array = new Control[collection.Count];
+            collection.Remove(control);
+            array[0] = control;
+            collection.CopyTo(array, 1);
+            collection.Clear();
+            collection.AddRange(array);
+        }
+
     }
 }

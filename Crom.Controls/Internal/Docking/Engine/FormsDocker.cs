@@ -482,7 +482,7 @@ namespace Crom.Controls.Docking
             {
                 return;
             }
-
+            container.BringToFront();
             _guider.BeginWindowMovement(container, container.SingleChild.AllowedDock);
         }
 

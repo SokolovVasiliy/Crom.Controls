@@ -115,8 +115,9 @@ namespace Crom.Controls.Docking
         public DockableFormInfo Add(Form form, zAllowedDock allowedDock, Guid formIdentifier)
         {
             DockableFormInfo info = _docker.Add(form, allowedDock, formIdentifier);
-            //form.MouseClick += BringToFrontHelper.OnBringToFront;
             form.ForeAllElements(c => c.MouseClick += BringToFrontHelper.OnBringToFront);
+            form.BringToFront();
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
             return info;
         }
         /// <summary>
