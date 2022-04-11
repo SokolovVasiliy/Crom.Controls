@@ -9,7 +9,7 @@ namespace Crom.Controls.Docking
 {
     internal static class BringToFrontHelper
     {
-        public static void OnBringToFront(object sender, MouseEventArgs e)
+        public static void OnBringToFront(object sender, MouseEventArgs args)
         {
             List<Control> controls = new List<Control>();
             Control cnt = (Control)sender;

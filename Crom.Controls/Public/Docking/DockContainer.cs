@@ -127,6 +127,8 @@ namespace Crom.Controls.Docking
         /// <returns>info of specified form</returns>
         public DockableFormInfo GetFormInfoAt(int index)
         {
+            var info = _docker.GetFormInfoAt(index);
+            
             return _docker.GetFormInfoAt(index);
         }
 

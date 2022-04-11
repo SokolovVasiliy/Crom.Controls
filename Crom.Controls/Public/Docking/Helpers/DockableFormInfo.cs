@@ -18,8 +18,10 @@
 
 using System;
 using System.Windows.Forms;
+using System.Windows;
 
 using Crom.Controls.TabbedDocument;
+using System.Drawing;
 
 namespace Crom.Controls.Docking
 {
@@ -117,7 +119,44 @@ namespace Crom.Controls.Docking
 
             return false;
         }
-
+        public void BringToFront()
+        {
+            Crom.Controls.Docking.BringToFrontHelper.OnBringToFront(this.DockableForm, null);
+        }
+        public bool MoveDocableForm(Point location)
+        {
+            bool res = false;
+            for(Control control = DockableForm; control != null; control = control.Parent)
+            {
+                DockableContainer c = control as DockableContainer;
+                if (c != null)
+                {
+                    c.Location = location;
+                    res = true;
+                }
+            }
+            return res;
+        }
+        public bool FixLocationDocableForm()
+        {
+            bool res = false;
+            for (Control control = DockableForm; control != null; control = control.Parent)
+            {
+                DockableContainer c = control as DockableContainer;
+                if (c != null)
+                {
+                    int y = c.Location.Y < 0 ? 0 : c.Location.Y;
+                    int x = c.Location.X < 0 ? 0 : c.Location.X;
+                    Point nc = new Point(x, y);
+                    if (c.Location != nc)
+                    {
+                        c.Location = nc;
+                        res = true;
+                    }
+                }
+            }
+            return res;
+        }
         /// <summary>
         /// Inequality operator
         /// </summary>

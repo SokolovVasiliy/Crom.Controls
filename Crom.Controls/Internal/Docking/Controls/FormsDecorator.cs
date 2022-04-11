@@ -96,7 +96,7 @@ namespace Crom.Controls.Docking
             BottomMargin.MouseMove += OnMouseMoveInBottomMargin;
             BottomMargin.MouseUp += OnMouseUpFromBottomMargin;
 
-
+            
             LeftMargin.BackColor = SystemColors.Control;
             RightMargin.BackColor = SystemColors.Control;
             BottomMargin.BackColor = SystemColors.Control;
