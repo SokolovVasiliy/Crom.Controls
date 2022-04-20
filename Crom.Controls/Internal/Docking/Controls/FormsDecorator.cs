@@ -65,14 +65,15 @@ namespace Crom.Controls.Docking
             var ic = InternalControls;
             this.Paint += OnFormDecoratorPaint;
             //FormsPanel.Paint += OnFormDecoratorPaint;
-            TitleBar.Height = 24;
+            TitleBar.Height = 20;
             TitleBar.Cursor = Cursors.Default;
             TitleBar.MouseClick += BringToFrontHelper.OnBringToFront;
             TitleBar.Paint += OnPaintTitleBar;
             TitleBar.MouseDown += OnMouseDownInTitleBar;
             TitleBar.MouseMove += OnMouseMoveInTitleBar;
             TitleBar.MouseUp += OnMouseUpFromTitleBar;
-            TopMargin.Height = 4;
+            TopMargin.Height = 28;
+            //TopMargin.Location = new Point(TopMargin.Location.X, 55);
             TopMargin.Cursor = Cursors.SizeNS;
             TopMargin.MouseDown += OnMouseDownInTopMargin;
             TopMargin.MouseMove += OnMouseMoveInTopMargin;
@@ -1122,7 +1123,8 @@ namespace Crom.Controls.Docking
             TopMargin.Left = FormsPanel.Left;
             TopMargin.Width = FormsPanel.Width;
             TopMargin.Height = magins.Bottom;
-
+            //-- для лучшей отзывчивости ресайза окна сверху
+            //TopMargin.Location = new Point(TopMargin.Location.X, -6);
             TitleBar.Top = TopMargin.Bottom;
             TitleBar.Left = TopMargin.Left;
             TitleBar.Width = TopMargin.Width;
